@@ -1,20 +1,20 @@
 const covid19ImpactEstimator = (data) => {
     // Computes the currently infected population
-    const covidImpact = data.reportedCases * 10;
-    const covidSevereImpact = data.reportedCases * 50;
+  const covidImpact = data.reportedCases * 10;
+  const covidSevereImpact = data.reportedCases * 50;
     //Declaration of variables
-    let impactInfectedByRequestTime = 0;
-    let severeInfectedByRequestTime = 0;
+  let impactInfectedByRequestTime = 0;
+  let severeInfectedByRequestTime = 0;
     //Functions for the computation of currently infected population by request time
     //For Impact
-    const impactCurrentlyInfectedByDay = () => {
-        const a= data.timeToElapse / 3;
-		const b = data.timeToElapse % 3;
-		let impactA = covidImpact * 2 ** a;
-		let impactB = ((impactA * 2)/ 3) * b;
-		return Math.floor(impactA + impactB);
-    }
-    const impactCurrentlyInfectedByWeeks = () => {
+  const impactCurrentlyInfectedByDay = () => {
+    const a= data.timeToElapse / 3;
+	const b = data.timeToElapse % 3;
+	let impactA = covidImpact * 2 ** a;
+	let impactB = ((impactA * 2)/ 3) * b;
+	return Math.floor(impactA + impactB);
+  }
+  const impactCurrentlyInfectedByWeeks = () => {
         const weekFactor = data.timeToElapse * 7;
         const a = weekFactor / 3;
         const b = weekFactor % 3;
