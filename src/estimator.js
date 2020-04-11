@@ -3,8 +3,8 @@ const covid19ImpactEstimator = (data) => {
   const covidImpact = data.reportedCases * 10;
   const covidSevereImpact = data.reportedCases * 50;
   // Declaration of variables
-  let impactInfectedByRequestTime;
-  let severeInfectedByRequestTime;
+  let impactInfectedByRequestTime = 0;
+  let severeInfectedByRequestTime = 0;
   // Functions for the computation of currently infected population by request time
   // For Impact
   const impactCurrentlyInfectedByDay = () => {
