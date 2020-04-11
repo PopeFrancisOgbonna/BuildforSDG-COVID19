@@ -2,12 +2,9 @@ const covid19ImpactEstimator = (data) => {
   // Computes the currently infected population
   const covidImpact = data.reportedCases * 10;
   const covidSevereImpact = data.reportedCases * 50;
-  // Declaration of variables
-  let impactInfectedByRequestTime = 0;
-  let severeInfectedByRequestTime = 0;
   // Functions for the computation of currently infected population by request time
   // For Impact
-  const impactCurrentlyInfectedByDay = () => {
+  const impactCurrentlyInfectedByDays = () => {
     const a = data.timeToElapse / 3;
     const b = data.timeToElapse % 3;
     const impactA = covidImpact * 2 ** a;
@@ -52,16 +49,16 @@ const covid19ImpactEstimator = (data) => {
     const impactB = ((impactA * 2) / 3) * b;
     return Math.floor(impactA + impactB);
   };
+  // Declaration of variables 
+  let severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
+  let impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
   // Computes Currently Infected population by request time
-  if (data.periodType === 'days') {
-    impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
-    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
-  } else if (data.periodType === 'weeks') {
-    impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
-    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
+  if (data.periodType === 'weeks') {
+    impactInfectedByRequestTime = impactCurrentlyInfectedByWeeks();
+    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByWeeks();   
   } else {
-    impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
-    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
+    impactInfectedByRequestTime = impactCurrentlyInfectedByMonths();
+    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByMonths();
   }
 
   return { data, impact, severeImpact };
