@@ -5,35 +5,35 @@ const covid19ImpactEstimator = (data) => {
   // Functions for the computation of currently infected population by request time
   // For Impact
   const impactCurrentlyInfectedByDays = () => {
-    const a = data.timeToElapse / 3;
+    const a = Math.trunc(data.timeToElapse / 3);
     const impactA = covidImpact * 2 ** a;
     return Math.floor(impactA);
   };
   const impactCurrentlyInfectedByWeeks = () => {
-    const weekFactor = data.timeToElapse * 7;
+    const weekFactor = Math.trunc(data.timeToElapse * 7);
     const a = weekFactor / 3;
     const impactA = (covidImpact * 2 ** a);
     return Math.floor(impactA);
   };
   const impactCurrentlyInfectedByMonths = () => {
-    const a = data.timeToElapse / 30;
+    const a = Math.trunc(data.timeToElapse / 30);
     const impactA = (covidImpact * 2 ** 10) * a;
     return Math.floor(impactA);
   };
   // For severeImpact
   const severeImpactCurrentlyInfectedByDays = () => {
-    const a = data.timeToElapse / 3;
+    const a = Math.trunc(data.timeToElapse / 3);
     const impactA = covidSevereImpact * 2 ** a;
     return Math.floor(impactA);
   };
   const severeImpactCurrentlyInfectedByWeeks = () => {
-    const weekFactor = data.timeToElapse * 7;
+    const weekFactor = Math.trunc(data.timeToElapse * 7);
     const a = weekFactor / 3;
     const impactA = (covidSevereImpact * 2 ** a);
     return Math.floor(impactA);
   };
   const severeImpactCurrentlyInfectedByMonths = () => {
-    const a = data.timeToElapse / 3;
+    const a = Math.trunc(data.timeToElapse / 3);
     const impactA = (covidSevereImpact * 2 ** 10) * a;
     return Math.floor(impactA);
   };
