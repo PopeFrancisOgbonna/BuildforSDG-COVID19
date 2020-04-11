@@ -1,7 +1,6 @@
 const covid19ImpactEstimator = (data) => {
-
     // Computes the currently infected population
-    const covidImpact = data.reportedCases * 10;
+    const covidImpact = data.reportedCases*10;
     const covidSevereImpact = data.reportedCases * 50;
     
     //Declaration of variables
