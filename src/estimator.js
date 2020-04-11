@@ -49,7 +49,7 @@ const covid19ImpactEstimator = (data) => {
     const impactB = ((impactA * 2) / 3) * b;
     return Math.floor(impactA + impactB);
   };
-  // Declaration of variables 
+  // Declaration of variables
   let severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
   let impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
   // Computes Currently Infected population by request time
@@ -60,7 +60,6 @@ const covid19ImpactEstimator = (data) => {
     impactInfectedByRequestTime = impactCurrentlyInfectedByMonths();
     severeInfectedByRequestTime = severeImpactCurrentlyInfectedByMonths();
   }
-
   return { data, impact, severeImpact };
 };
 
