@@ -55,7 +55,7 @@ const covid19ImpactEstimator = (data) => {
   // Computes Currently Infected population by request time
   if (data.periodType === 'weeks') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByWeeks();
-    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByWeeks();   
+    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByWeeks();
   } else {
     impactInfectedByRequestTime = impactCurrentlyInfectedByMonths();
     severeInfectedByRequestTime = severeImpactCurrentlyInfectedByMonths();
@@ -67,7 +67,7 @@ const covid19ImpactEstimator = (data) => {
   const severeImpact = {
     currentlyInfected: covidSevereImpact,
     infectionsByRequestTime: severeInfectedByRequestTime
-  }
+  };
   return { data, impact, severeImpact };
 };
 
