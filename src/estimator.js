@@ -6,48 +6,36 @@ const covid19ImpactEstimator = (data) => {
   // For Impact
   const impactCurrentlyInfectedByDays = () => {
     const a = data.timeToElapse / 3;
-    const b = data.timeToElapse % 3;
     const impactA = covidImpact * 2 ** a;
-    const impactB = ((impactA * 2) / 3) * b;
-    return Math.floor(impactA + impactB);
+    return Math.floor(impactA);
   };
   const impactCurrentlyInfectedByWeeks = () => {
     const weekFactor = data.timeToElapse * 7;
     const a = weekFactor / 3;
-    const b = weekFactor % 3;
     const impactA = (covidImpact * 2 ** a);
-    const impactB = ((impactA * 2) / 3) * b;
-    return Math.floor(impactA + impactB);
+    return Math.floor(impactA);
   };
   const impactCurrentlyInfectedByMonths = () => {
     const a = data.timeToElapse / 30;
-    const b = data.timeToElapse % 30;
     const impactA = (covidImpact * 2 ** 10) * a;
-    const impactB = ((impactA * 2) / 3) * b;
-    return Math.floor(impactA + impactB);
+    return Math.floor(impactA);
   };
   // For severeImpact
   const severeImpactCurrentlyInfectedByDays = () => {
     const a = data.timeToElapse / 3;
-    const b = data.timeToElapse % 3;
     const impactA = covidSevereImpact * 2 ** a;
-    const impactB = ((impactA * 2) / 3) * b;
-    return Math.floor(impactA + impactB);
+    return Math.floor(impactA);
   };
   const severeImpactCurrentlyInfectedByWeeks = () => {
     const weekFactor = data.timeToElapse * 7;
     const a = weekFactor / 3;
-    const b = weekFactor % 3;
     const impactA = (covidSevereImpact * 2 ** a);
-    const impactB = ((impactA * 2) / 3) * b;
-    return Math.floor(impactA + impactB);
+    return Math.floor(impactA);
   };
   const severeImpactCurrentlyInfectedByMonths = () => {
     const a = data.timeToElapse / 3;
-    const b = data.timeToElapse % 3;
     const impactA = (covidSevereImpact * 2 ** 10) * a;
-    const impactB = ((impactA * 2) / 3) * b;
-    return Math.floor(impactA + impactB);
+    return Math.floor(impactA);
   };
   // Declaration of variables
   let severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
