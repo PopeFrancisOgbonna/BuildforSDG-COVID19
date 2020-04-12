@@ -40,21 +40,23 @@ const covid19ImpactEstimator = (data) => {
     return impactA;
   };
   // Declaration of variables
-  let severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
+  let severeInfectedByRequestTime2 = severeImpactCurrentlyInfectedByDays();
   let impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
-  let impactDollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse);
-  let severeDollar = (severeInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse);
+  const dollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]);
+  const dollar2 = (severeInfectedByRequestTime2 * data.region[2] * data.region[3]);
+  let impactDollar =  dollar / (data.timeToElapse);
+  let severeDollar = dollar2 / (data.timeToElapse);
   // Computes Currently Infected population by request time
   if (data.periodType === 'weeks') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByWeeks();
-    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByWeeks();
-    impactDollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 7);
-    severeDollar = (severeInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 7);
+    severeInfectedByRequestTime2 = severeImpactCurrentlyInfectedByWeeks();
+    impactDollar = dollar / (data.timeToElapse * 7);
+    severeDollar = dollar2 / (data.timeToElapse * 7);
   } else if (data.periodType === 'months') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByMonths();
-    severeInfectedByRequestTime = severeImpactCurrentlyInfectedByMonths();
-    impactDollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 30);
-    severeDollar = (severeInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 30);
+    severeInfectedByRequestTime2 = severeImpactCurrentlyInfectedByMonths();
+    impactDollar = dollar / (data.timeToElapse * 30);
+    severeDollar = dollar2 / (data.timeToElapse * 30);
   }
   const impactSevereCasesByRequestTime = Math.trunc(impactInfectedByRequestTime * 0.15);
   const severeCasesByRequestedTime = Math.trunc(severeInfectedByRequestTime * 0.15);
@@ -67,18 +69,18 @@ const covid19ImpactEstimator = (data) => {
   const impact = {
     currentlyInfected: covidImpact,
     infectionsByRequestTime: impactInfectedByRequestTime,
-		severeCasesByRequestedTime: impactSevereCasesByRequestTime,
-		hospitalBedsByRequestTime: impactHospitalBedByRequestTime,
-		casesForICUByRequestedTime: impactCasesForICUByRequestTime,
+    severeCasesByRequestedTime: impactSevereCasesByRequestTime,
+    hospitalBedsByRequestTime: impactHospitalBedByRequestTime,
+    casesForICUByRequestedTime: impactCasesForICUByRequestTime,
     casesForVentilatorsByRequestedTime: impactCasesForVentilatorByRequestTime,
     dollarInflight: impactDollar
   };
   const severeImpact = {
     currentlyInfected: covidSevereImpact,
     infectionsByRequestTime: severeInfectedByRequestTime,
-    severeCasesByRequestedTime: severeCasesByRequestedTime,
-		hospitalBedsByRequestTime: severeHospitalBedByRequestTime,
-		casesForICUByRequestedTime: severeCasesForICUByRequestTime,
+    severeCasesByRequestedTime: severeCasesByRequestedTime2,
+    hospitalBedsByRequestTime: severeHospitalBedByRequestTime,
+    casesForICUByRequestedTime: severeCasesForICUByRequestTime,
     casesForVentilatorsByRequestedTime: severeCasesForVentilatorByRequestTime,
     dollarInflight: severeDollar
   };
