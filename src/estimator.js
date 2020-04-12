@@ -45,7 +45,7 @@ const covid19ImpactEstimator = (data) => {
   // Calcultion for dollar in flight
   const dollar = (impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD);
   const d = dollar * data.region.avgDailyIncomePopulation;
-  const dollar2 =(severeInfectedByRequestTime2 * data.region.avgDailyIncomeInUSD);
+  const dollar2 = (severeInfectedByRequestTime2 * data.region.avgDailyIncomeInUSD);
   const d2 = dollar2 * data.region.avgDailyIncomePopulation;
   let impactDollar = parseInt(d / (data.timeToElapse), 10);
   let severeDollar = parseInt(d2 / (data.timeToElapse), 10);
