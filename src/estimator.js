@@ -10,14 +10,15 @@ const covid19ImpactEstimator = (data) => {
     return impactA;
   };
   const impactCurrentlyInfectedByWeeks = () => {
-    const weekFactor = Math.trunc(data.timeToElapse * 7);
-    const a = weekFactor / 3;
+    const weekFactor = data.timeToElapse * 7;
+    const a = Math.trunc(weekFactor / 3);
     const impactA = (covidImpact * 2 ** a);
     return impactA;
   };
   const impactCurrentlyInfectedByMonths = () => {
-    const a = Math.trunc(data.timeToElapse / 30);
-    const impactA = (covidImpact * 2 ** 10) * a;
+    const monthFactor = data.timeToElapse * 30;
+    const a = Math.trunc(monthFactor / 3);
+    const impactA = covidImpact * 2 ** a;
     return impactA;
   };
   // For severeImpact
@@ -27,14 +28,15 @@ const covid19ImpactEstimator = (data) => {
     return impactA;
   };
   const severeImpactCurrentlyInfectedByWeeks = () => {
-    const weekFactor = Math.trunc(data.timeToElapse * 7);
-    const a = weekFactor / 3;
-    const impactA = (covidSevereImpact * 2 ** a);
+    const weekFactor = data.timeToElapse * 7;
+    const a = Math.trunc(weekFactor / 3);
+    const impactA = covidSevereImpact * 2 ** a;
     return impactA;
   };
   const severeImpactCurrentlyInfectedByMonths = () => {
-    const a = Math.trunc(data.timeToElapse / 3);
-    const impactA = (covidSevereImpact * 2 ** 10) * a;
+    const monthFactor = data.timeToElapse * 30;
+    const a = Math.trunc(monthFactor / 3);
+    const impactA = covidSevereImpact * 2 **  a;
     return impactA;
   };
   // Declaration of variables
