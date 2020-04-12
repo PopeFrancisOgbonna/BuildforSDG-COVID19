@@ -42,21 +42,45 @@ const covid19ImpactEstimator = (data) => {
   // Declaration of variables
   let severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
   let impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
+  let impactDollar = parseInt((impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) * (data.timeToElapse));
+  let severeDollar = parseInt((severeInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) * (data.timeToElapse));
   // Computes Currently Infected population by request time
   if (data.periodType === 'weeks') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByWeeks();
     severeInfectedByRequestTime = severeImpactCurrentlyInfectedByWeeks();
-  } else {
+    impactDollar = parseInt((impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) / (data.timeToElapse * 7));
+    severeDollar = parseInt((severeInfectedByRequestTime * data.region.avgDaiyIncomeInUSD * data.region.avgDailyIncomePopulation) / (data.timeToElapse * 7));
+  } else if (data.periodType ==='months') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByMonths();
     severeInfectedByRequestTime = severeImpactCurrentlyInfectedByMonths();
+    impactDollar = parseInt((impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) / (data.timeToElapse * 30));
+    severeDollar = parseInt((severeInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) / (data.timeToElapse * 30));
   }
+  const impactSevereCasesByRequestTime = Math.trunc(impactInfectedByRequestTime * 0.15);
+  const severeCasesByRequestedTime = Math.trunc(severeInfectedByRequestTime * 0.15);
+  const impactHospitalBedByRequestTime = Math.trunc((data.totalHospitalBeds * 0.35) - impactSevereCasesByRequestTime);
+	const severeHospitalBedByRequestTime = Math.trunc((data.totalHospitalBeds * 0.35) - severeCasesByRequestedTime);
+	const impactCasesForICUByRequestTime = Math.trunc(0.05 * impactInfectedByRequestTime);
+  const severeCasesForICUByRequestTime = Math.trunc(0.05 * severeInfectedByRequestTime);
+  const impactCasesForVentilatorByRequestTime = Math.trunc(0.02 * impactInfectedByRequestTime);
+	const severeCasesForVentilatorByRequestTime = Math.trunc(0.02 * severeInfectedByRequestTime);
   const impact = {
     currentlyInfected: covidImpact,
-    infectionsByRequestTime: impactInfectedByRequestTime
-  };
+    infectionsByRequestTime: impactInfectedByRequestTime,
+		severeCasesByRequestedTime: impactSevereCasesByRequestTime,
+		hospitalBedsByRequestTime: impactHospitalBedByRequestTime,
+		casesForICUByRequestedTime: impactCasesForICUByRequestTime,
+    casesForVentilatorsByRequestedTime: impactCasesForVentilatorByRequestTime,
+    dollarInflight: impactDollar
+  }
   const severeImpact = {
     currentlyInfected: covidSevereImpact,
-    infectionsByRequestTime: severeInfectedByRequestTime
+    infectionsByRequestTime: severeInfectedByRequestTime,
+    severeCasesByRequestedTime: severeCasesByRequestedTime,
+		hospitalBedsByRequestTime: severeHospitalBedByRequestTime,
+		casesForICUByRequestedTime: severeCasesForICUByRequestTime,
+    casesForVentilatorsByRequestedTime: severeCasesForVentilatorByRequestTime,
+    dollarInflight: severeDollar
   };
   return { data, impact, severeImpact };
 };
