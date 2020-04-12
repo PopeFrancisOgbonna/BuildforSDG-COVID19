@@ -36,7 +36,7 @@ const covid19ImpactEstimator = (data) => {
   const severeImpactCurrentlyInfectedByMonths = () => {
     const monthFactor = data.timeToElapse * 30;
     const a = Math.trunc(monthFactor / 3);
-    const impactA = covidSevereImpact * 2 **  a;
+    const impactA = covidSevereImpact * 2 ** a;
     return impactA;
   };
   // Declaration of variables
