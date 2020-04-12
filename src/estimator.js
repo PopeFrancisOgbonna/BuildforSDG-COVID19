@@ -70,25 +70,27 @@ const covid19ImpactEstimator = (data) => {
   const severeCasesForICUByRequestTime = Math.trunc(0.05 * severeInfectedByRequestTime2);
   const impactCasesForVentilatorByRequestTime = Math.trunc(0.02 * impactInfectedByRequestTime);
   const severeCasesForVentilatorByRequestTime = Math.trunc(0.02 * severeInfectedByRequestTime2);
-  const impact = {
-    currentlyInfected: covidImpact,
-    infectionsByRequestTime: impactInfectedByRequestTime,
-    severeCasesByRequestedTime: impactSevereCasesByRequestTime,
-    hospitalBedsByRequestTime: impactHospitalBedByRequestTime,
-    casesForICUByRequestedTime: impactCasesForICUByRequestTime,
-    casesForVentilatorsByRequestedTime: impactCasesForVentilatorByRequestTime,
-    dollarInflight: impactDollar
+  return {
+    data: data,
+    impact: {
+      currentlyInfected: covidImpact,
+      infectionsByRequestTime: impactInfectedByRequestTime,
+      severeCasesByRequestedTime: impactSevereCasesByRequestTime,
+      hospitalBedsByRequestTime: impactHospitalBedByRequestTime,
+      casesForICUByRequestedTime: impactCasesForICUByRequestTime,
+      casesForVentilatorsByRequestedTime: impactCasesForVentilatorByRequestTime,
+      dollarInflight: impactDollar
+    },
+    severeImpact: {
+      currentlyInfected: covidSevereImpact,
+      infectionsByRequestTime: severeInfectedByRequestTime2,
+      severeCasesByRequestedTime: severeCasesByRequestedTime1,
+      hospitalBedsByRequestTime: severeHospitalBedByRequestTime,
+      casesForICUByRequestedTime: severeCasesForICUByRequestTime,
+      casesForVentilatorsByRequestedTime: severeCasesForVentilatorByRequestTime,
+      dollarInflight: severeDollar
+    }
   };
-  const severeImpact = {
-    currentlyInfected: covidSevereImpact,
-    infectionsByRequestTime: severeInfectedByRequestTime2,
-    severeCasesByRequestedTime: severeCasesByRequestedTime1,
-    hospitalBedsByRequestTime: severeHospitalBedByRequestTime,
-    casesForICUByRequestedTime: severeCasesForICUByRequestTime,
-    casesForVentilatorsByRequestedTime: severeCasesForVentilatorByRequestTime,
-    dollarInflight: severeDollar
-  };
-  return { data, impact, severeImpact };
 };
 
 export default covid19ImpactEstimator;
