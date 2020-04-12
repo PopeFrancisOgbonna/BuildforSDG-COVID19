@@ -42,29 +42,19 @@ const covid19ImpactEstimator = (data) => {
   // Declaration of variables
   let severeInfectedByRequestTime = severeImpactCurrentlyInfectedByDays();
   let impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
-  let impactDollar = 
-  parseInt((impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) *
-  (data.timeToElapse),10);
-  let severeDollar = parseInt((severeInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) * (data.timeToElapse));
+  let impactDollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse);
+  let severeDollar = (severeInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse);
   // Computes Currently Infected population by request time
   if (data.periodType === 'weeks') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByWeeks();
     severeInfectedByRequestTime = severeImpactCurrentlyInfectedByWeeks();
-    impactDollar = 
-    parseInt((impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) / 
-    (data.timeToElapse * 7),10);
-    severeDollar = 
-    parseInt((severeInfectedByRequestTime * data.region.avgDaiyIncomeInUSD * data.region.avgDailyIncomePopulation) / 
-    (data.timeToElapse * 7),10);
+    impactDollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 7);
+    severeDollar = (severeInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 7);
   } else if (data.periodType === 'months') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByMonths();
     severeInfectedByRequestTime = severeImpactCurrentlyInfectedByMonths();
-    impactDollar = 
-    parseInt((impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) / 
-    (data.timeToElapse * 30),10);
-    severeDollar = 
-    parseInt((severeInfectedByRequestTime * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation) / 
-    (data.timeToElapse * 30),10);
+    impactDollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 30);
+    severeDollar = (severeInfectedByRequestTime * data.region[2] * data.region[3]) / (data.timeToElapse * 30);
   }
   const impactSevereCasesByRequestTime = Math.trunc(impactInfectedByRequestTime * 0.15);
   const severeCasesByRequestedTime = Math.trunc(severeInfectedByRequestTime * 0.15);
