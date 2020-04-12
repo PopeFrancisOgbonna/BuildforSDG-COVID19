@@ -44,7 +44,7 @@ const covid19ImpactEstimator = (data) => {
   let impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
   const dollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]);
   const dollar2 = (severeInfectedByRequestTime2 * data.region[2] * data.region[3]);
-  let impactDollar =  dollar / (data.timeToElapse);
+  let impactDollar = dollar / (data.timeToElapse);
   let severeDollar = dollar2 / (data.timeToElapse);
   // Computes Currently Infected population by request time
   if (data.periodType === 'weeks') {
@@ -59,11 +59,11 @@ const covid19ImpactEstimator = (data) => {
     severeDollar = dollar2 / (data.timeToElapse * 30);
   }
   const impactSevereCasesByRequestTime = Math.trunc(impactInfectedByRequestTime * 0.15);
-  const severeCasesByRequestedTime = Math.trunc(severeInfectedByRequestTime * 0.15);
+  const severeCasesByRequestedTime = Math.trunc(severeInfectedByRequestTime2 * 0.15);
   const impactHospitalBedByRequestTime = Math.trunc((data.totalHospitalBeds * 0.35) - impactSevereCasesByRequestTime);
   const severeHospitalBedByRequestTime = Math.trunc((data.totalHospitalBeds * 0.35) - severeCasesByRequestedTime);
   const impactCasesForICUByRequestTime = Math.trunc(0.05 * impactInfectedByRequestTime);
-  const severeCasesForICUByRequestTime = Math.trunc(0.05 * severeInfectedByRequestTime);
+  const severeCasesForICUByRequestTime = Math.trunc(0.05 * severeInfectedByRequestTime2);
   const impactCasesForVentilatorByRequestTime = Math.trunc(0.02 * impactInfectedByRequestTime);
   const severeCasesForVentilatorByRequestTime = Math.trunc(0.02 * severeInfectedByRequestTime);
   const impact = {
@@ -77,8 +77,8 @@ const covid19ImpactEstimator = (data) => {
   };
   const severeImpact = {
     currentlyInfected: covidSevereImpact,
-    infectionsByRequestTime: severeInfectedByRequestTime,
-    severeCasesByRequestedTime: severeCasesByRequestedTime2,
+    infectionsByRequestTime: severeInfectedByRequestTime2,
+    severeCasesByRequestedTime: severeCasesByRequestedTime,
     hospitalBedsByRequestTime: severeHospitalBedByRequestTime,
     casesForICUByRequestedTime: severeCasesForICUByRequestTime,
     casesForVentilatorsByRequestedTime: severeCasesForVentilatorByRequestTime,
