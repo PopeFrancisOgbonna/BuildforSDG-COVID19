@@ -42,10 +42,13 @@ const covid19ImpactEstimator = (data) => {
   // Declaration of variables
   let severeInfectedByRequestTime2 = severeImpactCurrentlyInfectedByDays();
   let impactInfectedByRequestTime = impactCurrentlyInfectedByDays();
-  const dollar = (impactInfectedByRequestTime * data.region[2] * data.region[3]);
-  const dollar2 = (severeInfectedByRequestTime2 * data.region[2] * data.region[3]);
-  let impactDollar = dollar / (data.timeToElapse);
-  let severeDollar = dollar2 / (data.timeToElapse);
+  // Calcultion for dollar in flight
+  const dollar = (impactInfectedByRequestTime * data.region.avgDailyIncomeInUSD);
+  const d = dollar * data.region.avgDailyIncomePopulation;
+  const dollar2 =(severeInfectedByRequestTime2 * data.region.avgDailyIncomeInUSD);
+  const d2 = dollar2 * data.region.avgDailyIncomePopulation;
+  let impactDollar = parseInt(d / (data.timeToElapse), 10);
+  let severeDollar = parseInt(d2 / (data.timeToElapse), 10);
   // Computes Currently Infected population by request time
   if (data.periodType === 'weeks') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByWeeks();
@@ -60,9 +63,9 @@ const covid19ImpactEstimator = (data) => {
   }
   const impactSevereCasesByRequestTime = Math.trunc(impactInfectedByRequestTime * 0.15);
   const severeCasesByRequestedTime1 = Math.trunc(severeInfectedByRequestTime2 * 0.15);
-  const hospital = Math.trunc((data.totalHospitalBeds * 0.35));
-  const impactHospitalBedByRequestTime = hospital - impactSevereCasesByRequestTime;
-  const severeHospitalBedByRequestTime = hospital - severeCasesByRequestedTime1;
+  const hospital = (data.totalHospitalBeds * 0.35);
+  const impactHospitalBedByRequestTime = Math.trunc(hospital - impactSevereCasesByRequestTime);
+  const severeHospitalBedByRequestTime = Math.trunc(hospital - severeCasesByRequestedTime1);
   const impactCasesForICUByRequestTime = Math.trunc(0.05 * impactInfectedByRequestTime);
   const severeCasesForICUByRequestTime = Math.trunc(0.05 * severeInfectedByRequestTime2);
   const impactCasesForVentilatorByRequestTime = Math.trunc(0.02 * impactInfectedByRequestTime);
