@@ -47,19 +47,19 @@ const covid19ImpactEstimator = (data) => {
   const d = dollar * data.region.avgDailyIncomePopulation;
   const dollar2 = (severeInfectedByRequestTime2 * data.region.avgDailyIncomeInUSD);
   const d2 = dollar2 * data.region.avgDailyIncomePopulation;
-  let impactDollar = parseInt(d / (data.timeToElapse), 10);
-  let severeDollar = parseInt(d2 / (data.timeToElapse), 10);
+  let impactDollar = Math.trunc(d * (data.timeToElapse));
+  let severeDollar = Math.trunc(d2 * (data.timeToElapse));
   // Computes Currently Infected population by request time
   if (data.periodType === 'weeks') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByWeeks();
     severeInfectedByRequestTime2 = severeImpactCurrentlyInfectedByWeeks();
-    impactDollar = dollar / (data.timeToElapse * 7);
-    severeDollar = dollar2 / (data.timeToElapse * 7);
+    impactDollar = dollar * (data.timeToElapse * 7);
+    severeDollar = dollar2 * (data.timeToElapse * 7);
   } else if (data.periodType === 'months') {
     impactInfectedByRequestTime = impactCurrentlyInfectedByMonths();
     severeInfectedByRequestTime2 = severeImpactCurrentlyInfectedByMonths();
-    impactDollar = dollar / (data.timeToElapse * 30);
-    severeDollar = dollar2 / (data.timeToElapse * 30);
+    impactDollar = dollar * (data.timeToElapse * 30);
+    severeDollar = dollar2 * (data.timeToElapse * 30);
   }
   const impactSevereCasesByRequestTime = Math.trunc(impactInfectedByRequestTime * 0.15);
   const severeCasesByRequestedTime1 = Math.trunc(severeInfectedByRequestTime2 * 0.15);
