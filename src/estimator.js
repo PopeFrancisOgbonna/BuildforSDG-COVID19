@@ -1,3 +1,10 @@
+const removeDecimal = (a) => {
+  const figureRec = String(a);
+  if (figureRec.indexOf('.') < 0) {
+    return Number(figureRec);
+  }
+  return Number(figureRec.slice(0, figureRec.indexOf('.')));
+};
 const requestTime = (time, infected) => {
   const factor = removeDecimal(time / 3);
   return infected * 2 ** factor;
@@ -12,13 +19,6 @@ const normalized = (period, time) => {
     nResult = time;
   }
   return nResult;
-};
-const removeDecimal = (a) => {
-  const figureRec = String(a);
-  if (figureRec.indexOf('.') < 0) {
-    return Number(figureRec);
-  }
-  return Number(figureRec.slice(0, figureRec.indexOf('.')));
 };
 const covid19ImpactEstimator = (data) => {
   const imInfected = data.reportedCases * 10;
