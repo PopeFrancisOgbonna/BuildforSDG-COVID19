@@ -1,5 +1,5 @@
 const requestTime = (time, infected) => {
-  const factor = time / 3;
+  const factor = removeDecimal(time / 3);
   return infected * 2 ** factor;
 };
 const normalized = (period, time) => {
