@@ -13,25 +13,30 @@ const normalized = (period, time) => {
   }
   return nResult;
 };
+const removeDecimal = (a) => {
+  const figureRec = String(a);
+  if (figureRec.indexOf('.') < 0) {
+    return Number(figureRec);
+  };
 const covid19ImpactEstimator = (data) => {
   const imInfected = data.reportedCases * 10;
   const seInfected = data.reportedCases * 50;
-  const normalizedTime = Math.trunc(normalized(data.periodType, data.timeToElapse));
+  const normalizedTime = removeDecimal(normalized(data.periodType, data.timeToElapse));
   const imRequestedTime = (requestTime(normalizedTime, imInfected));
   const seRequestedTime = (requestTime(normalizedTime, seInfected));
-  const imCases = Math.trunc(0.15 * imRequestedTime);
-  const seCases = Math.trunc(0.15 * seRequestedTime);
+  const imCases = removeDecimal(0.15 * imRequestedTime);
+  const seCases = removeDecimal(0.15 * seRequestedTime);
   const bedSpace = 0.35 * data.totalHospitalBeds;
-  const imBedSpace = Math.trunc(bedSpace - (0.15 * imRequestedTime));
-  const seBedSpace = Math.trunc(bedSpace - (0.15 * seRequestedTime));
-  const imICU = Math.trunc(0.05 * imRequestedTime);
-  const seICU = Math.trunc(0.05 * seRequestedTime);
-  const imVentilator = Math.trunc((0.02 * imRequestedTime));
-  const seVentilator = Math.trunc((0.02 * seRequestedTime));
+  const imBedSpace = removeDecimal(bedSpace - (0.15 * imRequestedTime));
+  const seBedSpace = removeDecimal(bedSpace - (0.15 * seRequestedTime));
+  const imICU = removeDecimal(0.05 * imRequestedTime);
+  const seICU = removeDecimal(0.05 * seRequestedTime);
+  const imVentilator = removeDecimal((0.02 * imRequestedTime));
+  const seVentilator = removeDecimal((0.02 * seRequestedTime));
   const imDollarCal = imRequestedTime * data.region.avgDailyIncomePopulation;
-  const imDollar = Math.trunc((imDollarCal * data.region.avgDailyIncomeInUSD) / normalizedTime);
+  const imDollar = removeDecimal((imDollarCal * data.region.avgDailyIncomeInUSD) / normalizedTime);
   const seDollarCal = seRequestedTime * data.region.avgDailyIncomePopulation;
-  const seDollar = Math.trunc((seDollarCal * data.region.avgDailyIncomeInUSD) / normalizedTime);
+  const seDollar = removeDecimal((seDollarCal * data.region.avgDailyIncomeInUSD) / normalizedTime);
   return {
     data,
     impact: {
