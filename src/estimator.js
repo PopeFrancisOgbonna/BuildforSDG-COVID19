@@ -18,6 +18,7 @@ const removeDecimal = (a) => {
   if (figureRec.indexOf('.') < 0) {
     return Number(figureRec);
   };
+}
 const covid19ImpactEstimator = (data) => {
   const imInfected = data.reportedCases * 10;
   const seInfected = data.reportedCases * 50;
