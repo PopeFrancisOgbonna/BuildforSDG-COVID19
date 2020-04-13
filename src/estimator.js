@@ -1,18 +1,18 @@
-const requestTime = (time,infected) => {
+const requestTime = (time, infected) => {
   const factor = time / 3;
   return infected * 2 ** factor;
-}
-const normalized = (period,time) => {
+};
+const normalized = (period, time) => {
   let nResult;
   if (period === 'weeks') {
     nResult = time * 7;
   } else if (period === 'months') {
     nResult = time * 30;
-  } else if (period === 'days'){
+  } else if (period === 'days') {
     nResult = time;
   }
   return nResult;
-}
+};
 const covid19ImpactEstimator = (data) => {
   const imInfected = data.reportedCases * 10;
   const seInfected = data.reportedCases * 50;
@@ -30,7 +30,7 @@ const covid19ImpactEstimator = (data) => {
   const seVentilator = Math.trunc((0.02 * seRequestedTime));
   const imDollarCal = imRequestedTime * data.region.avgDailyIncomePopulation;
   const imDollar = Math.trunc((imDollarCal * data.region.avgDailyIncomeInUSD) / normalizedTime);
-  const  seDollarCal = seRequestedTime * data.region.avgDailyIncomePopulation;
+  const seDollarCal = seRequestedTime * data.region.avgDailyIncomePopulation;
   const seDollar = Math.trunc((seDollarCal * data.region.avgDailyIncomeInUSD) / normalizedTime);
   return {
     data,
